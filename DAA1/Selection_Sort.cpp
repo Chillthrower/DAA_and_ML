@@ -49,7 +49,7 @@ int main()
     //     for (int k = 0; k < 100; k++) 
     //     { 
     //         for (int i = 0; i < n; i++) A[i] = rand() % 1000; 
-    //                                                             --------> THIS COMMENTED SECTION HAS THE SAME SYNTAX FOR ALL 5 TYPES OF SORT WHERE "....." is CHANGED
+    //                                                             --------> THIS COMMENTED SECTION HAS THE SAME SYNTAX FOR ALL 5 TYPES OF SORT WHERE ONLY "....." is CHANGED
     //         struct timespec start, end;
     //         clock_gettime(CLOCK_MONOTONIC, &start);
     //         ......
