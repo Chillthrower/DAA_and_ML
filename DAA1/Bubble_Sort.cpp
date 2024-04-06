@@ -19,7 +19,10 @@ int main()
         int A[n];
         for (int k = 0; k < 10; k++) 
         {
-            for (int i = 0; i < n; i++) A[i] = rand() % 1000; 
+            for (int i = 0; i < n; i++) 
+            {
+                A[i] = rand() % 1000;
+            } 
 
             struct timespec start, end;
             clock_gettime(CLOCK_MONOTONIC, &start); 
