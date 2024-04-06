@@ -67,12 +67,15 @@ int main()
     //     int A[n];
     //     for (int k = 0; k < 10; k++) 
     //     {
-    //         for (int i = 0; i < n; i++) A[i] = rand() % 1000; 
+    //         for (int i = 0; i < n; i++) 
+    //         {
+    //             A[i] = rand() % 1000;
+    //         } 
 
     //         struct timespec start, end;
     //         clock_gettime(CLOCK_MONOTONIC, &start); 
 
-    //          ......................................                      --------> THIS COMMENTED SECTION HAS THE SAME SYNTAX FOR ALL 5 TYPES OF SORT WHERE ONLY "....." is CHANGED
+    //          .................................                      --------> THIS COMMENTED SECTION HAS THE SAME SYNTAX FOR ALL 5 TYPES OF SORT WHERE ONLY "....." is CHANGED
 
     //         clock_gettime(CLOCK_MONOTONIC, &end); 
 
@@ -82,3 +85,4 @@ int main()
     // }
     // fclose(fp);
     // printf("Experiment completed. Results saved to time_vs_n_bubble.csv.\n");
+    // return 0;
