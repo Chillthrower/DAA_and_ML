@@ -103,7 +103,7 @@ metadata, traindata = read_data("tennisdata.csv")
 node = create_node(traindata, metadata)
 print_tree(node, 0)
 
-# reduced code
+# reduced code -----------------------------------------------------------------------------------------------
 
 import numpy as np
 import math
