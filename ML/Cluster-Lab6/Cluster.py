@@ -12,7 +12,6 @@ X = data[features]
 scaled_data = StandardScaler().fit_transform(X)
 em_cluster = GaussianMixture(n_components=5, random_state=42).fit_predict(scaled_data)
 kmeans_cluster = KMeans(n_clusters=5, random_state=42).fit_predict(scaled_data)
-kmeans_cluster = KMeans(n_clusters=5, random_state=42).fit_predict(scaled_data)
 
 plt.figure(figsize=(12, 6))
 
