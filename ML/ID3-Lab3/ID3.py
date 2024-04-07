@@ -118,15 +118,13 @@ def read_data(filename):
 
 class Node:
     def __init__(self, attribute):
-        self.attribute = attribute
-        self.children = []
-        self.answer = ""
-
+        self.attribute, self.children, self.answer = attribute, [], ""
+    
     def __str__(self):
         return self.attribute
 
     def is_leaf(self):
-        return self.answer != ""
+        return bool(self.answer)
 
 def subtables(data, col, delete):
     items = np.unique(data[:, col])
@@ -151,17 +149,10 @@ def entropy(S):
 def gain_ratio(data, col):
     items, dict = subtables(data, col, delete=False)
     total_size = data.shape[0]
-    entropies = np.zeros((items.shape[0], 1))
-    intrinsic = np.zeros((items.shape[0], 1))
-    for x in range(items.shape[0]):
-        ratio = dict[items[x]].shape[0]/(total_size * 1.0)
-        entropies[x] = ratio * entropy(dict[items[x]][:, -1])
-        intrinsic[x] = ratio * math.log(ratio, 2)
+    entropies = np.array([ratio * entropy(subtable[:, -1]) for ratio, subtable in [(dict[item].shape[0] / total_size, dict[item]) for item in items]])
     total_entropy = entropy(data[:, -1])
-    iv = -1 * sum(intrinsic)
-    for x in range(entropies.shape[0]):
-        total_entropy -= entropies[x]
-    return total_entropy / iv
+    iv = np.sum([(dict[item].shape[0] / total_size) * math.log(dict[item].shape[0] / total_size, 2) for item in items])
+    return total_entropy / iv - np.sum(entropies)
 
 def create_node(data, metadata):
     if len(set(data[:, -1])) == 1:
@@ -173,9 +164,7 @@ def create_node(data, metadata):
     node = Node(metadata[split])
     metadata = np.delete(metadata, split, 0)
     items, dict = subtables(data, split, delete=True)
-    for x in range(items.shape[0]):
-        child = create_node(dict[items[x]], metadata)
-        node.children.append((items[x], child))
+    node.children = [(items[x], create_node(dict[items[x]], metadata)) for x in range(items.shape[0])]
     return node
 
 def empty(size):
@@ -186,10 +175,9 @@ def print_tree(node, level):
         print(empty(level), node.answer)
     else:
         print(empty(level), node.attribute)
-        for value, child in node.children:
-            print(empty(level + 1), value)
-            print_tree(child, level + 2)
+        [print(empty(level + 1), value) or print_tree(child, level + 2) for value, child in node.children]
 
 metadata, traindata = read_data("tennisdata.csv")
 node = create_node(traindata, metadata)
 print_tree(node, 0)
+
