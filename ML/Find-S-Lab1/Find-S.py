@@ -17,7 +17,7 @@ for example in positive_examples:
 print("The maximally specific Find-S hypothesis for the given training examples is:")
 print(hypothesis)
 
-# reduced code
+# reduced code-----------------------------------------------------------------------------------------------
 import pandas as pd
 
 data = pd.read_csv('enjoysport.csv')
