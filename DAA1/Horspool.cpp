@@ -19,10 +19,8 @@ void generateShiftTable(char pattern[], int shiftTable[])
     }
 }
 
-int horspoolSearch(char pattern[], char string[]) 
+int horspoolSearch(char pattern[], char string[], int shiftTable[]) 
 {
-    int shiftTable[ALPHABET_SIZE];
-    generateShiftTable(pattern, shiftTable);
     int patternLength = strlen(pattern);
     int stringLength = strlen(string);
     int i = PATTERN_LENGTH - 1;
@@ -64,7 +62,19 @@ int main()
 
     fclose(file);
 
-    int position = horspoolSearch(pattern, string);
+    int shiftTable[ALPHABET_SIZE];
+    generateShiftTable(pattern, shiftTable);
+
+    printf("Shift Table:\n");
+    for (int i = 0; i < ALPHABET_SIZE; i++) 
+    {
+        if (shiftTable[i] != PATTERN_LENGTH) 
+        {
+            printf("%c: %d\n", i, shiftTable[i]);
+        }
+    }
+
+    int position = horspoolSearch(pattern, string, shiftTable);
 
     if (position != -1)
         printf("Pattern found at position: %d\n", position);
