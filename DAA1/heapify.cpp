@@ -3,31 +3,24 @@
 
 void heapify(int n, int a[]) 
 {
-    int k, v, heap, j;
-
-    for (int i = floor(n / 2) - 1; i >= 0; i--) 
+    for (int i = 1; i < n; i++) 
     {
-        k = i;
-        v = a[k];
-        heap = 0;
-
-        while (!heap && 2 * k < n) 
+        int child = i;
+        while (child > 0) 
         {
-            j = 2 * k + 1;
-            if (j < n - 1 && a[j] < a[j + 1]) 
+            int parent = (child - 1) / 2;
+            if (a[child] > a[parent]) 
             {
-                j++;
-            }
-            if (v >= a[j]) 
+                int temp = a[child];
+                a[child] = a[parent];
+                a[parent] = temp;
+                child = parent;
+            } 
+            else 
             {
-                heap = 1;
-            } else 
-            {
-                a[k] = a[j];
-                k = j;
+                break;
             }
         }
-        a[k] = v;
     }
 }
 
@@ -49,11 +42,11 @@ void heapSort(int n, int a[])
 int main() 
 {
     int H[] = 
-    {0, 9, 6, 7, 5, 4, 2, 3, 8}; 
-    int n = sizeof(H) / sizeof(H[0]) - 1; 
+    {9, 6, 7, 5, 4, 2, 3, 8}; 
+    int n = sizeof(H) / sizeof(H[0]); 
 
     printf("Array before heap sort: ");
-    for (int i = 1; i <= n; i++) 
+    for (int i = 0; i < n; i++) 
     {
         printf("%d ", H[i]);
     }
@@ -62,7 +55,7 @@ int main()
     heapSort(n, H);
 
     printf("Array after heap sort: ");
-    for (int i = 1; i <= n; i++) 
+    for (int i = 0; i < n; i++) 
     {
         printf("%d ", H[i]);
     }
