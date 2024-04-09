@@ -1,4 +1,5 @@
 
+################# MAM WONT LET YOU USE THIS CODE BECAUSE K VALUE IS NOT DEFINED
 # AJAY BOYS CODE
 
 import numpy as np
