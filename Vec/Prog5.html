@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+    <div>
+        <h1>filter 1</h1>
+        <ul>
+            <li ng-repeat="item in items">{{item.name}} - {{item.price | currency}}</li>
+        </ul>
+        <h1>filter 2</h1>
+        <ul>
+            <li ng-repeat="item in items | orderBy:'name'">{{item.name | uppercase}} - {{item.price | currency}}</li>
+        </ul>
+        <h1>filter 3</h1>
+        <ul>
+            <li ng-repeat="item in items | customeFilter">{{item.name | lowercase}} - {{item.price | currency}}</li>
+        </ul>
+    </div>
+
+    <script>
+        var app = angular.module("myApp", []);
+        app.controller("myController", ["$scope", function($scope) {
+            $scope.items = [
+                {name: 'Apple', price: 12},
+                {name: 'Mango', price: 78},
+                {name: 'Banana', price: 90},
+            ];
+        }]);
+
+        app.filter("customeFilter", function() {
+            return function(items) {
+                var filtered = [];
+                angular.forEach(items, function(item) {
+                    if(item.price > 1)
+                    {
+                        filtered.push(item);
+                    }
+                });
+
+                return filtered;
+            };
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cool</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body ng-app="myApp" ng-controller="myController">
+    <form name="RegForm">
+        <label>Enter name</label>
+        <input type="text" ng-model="name" />
+        <br />
+        <label>Enter age</label>
+        <input type="text" ng-model="age" />
+        <br />
+        <p>Courses:</p>
+        <input type="checkbox" ng-model="Value1" name="option1" value="C++" />
+        <label>C++</label>
+        <br />
+        <input type="checkbox" ng-model="Value2" name="option2" value="Java" />
+        <label>Java</label>
+        <br />
+        <input type="checkbox" ng-model="Value3" name="option3" value="Python" />
+        <label>Python</label>
+        <br />
+        <input type="submit" ng-click="Detail()" />
+        <div>
+            <br />
+            <table border="1px solid black" style="border-collapse: collapse">
+                <tr border="1px solid black" style="border-collapse: collapse" ng-repeat="x in RegDetail">
+                    <td>{{x.key}}</td>
+                    <td>{{x.value}}</td>
+                </tr>
+            </table>
+        </div>
+    </form>
+
+    <script>
+        var app = angular.module("myApp", []);
+        app.controller("myController", ["$scope", function($scope) {
+            $scope.Detail = function() {
+                $scope.courses = [];
+
+                if($scope.Value1)
+                    $scope.courses.push("C++");
+                if($scope.Value2)
+                    $scope.courses.push("Java");
+                if($scope.Value3)
+                    $scope.courses.push("Python");
+
+                $scope.RegDetail = [
+                    {key: 'name', value: $scope.name},
+                    {key: 'age', value: $scope.age},
+                    {key: 'courses', value: $scope.courses.toString()},
+                ];
+            };
+        }]);
+    </script>
+</body>
+</html>
